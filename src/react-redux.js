@@ -43,4 +43,29 @@ export const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponen
   }
 
   return Connect
+};
+
+// 容器组件
+// 把嵌套的内容原封不动作为自己的子组件渲染出来, 还会把外界传给它的 props.store 放到 context
+export class Provider extends Component {
+  static propTypes = {
+    store: PropTypes.object,
+    children: PropTypes.any
+  }
+
+  static childContextTypes = {
+    store: PropTypes.object
+  }
+
+  getChildContext () {
+    return {
+      store: this.props.store
+    }
+  }
+
+  render () {
+    return (
+      <div>{this.props.children}</div>
+    )
+  }
 }
